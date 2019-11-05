@@ -7,11 +7,16 @@ import SearchPanel from "./components/search-panel";
 import RandomJoke from "./components/random-joke";
 
 const App = () => {
+    const todoData = [
+        { label: 'Drink Coffee', important: false, id: 1 },
+        { label: 'Make something', important: false, id: 2 },
+        { label: 'Make something else', important: true, id: 3 }
+    ];
     return (
-        <div>
-            <AppHeader/>
+        <div className="container">
+            <AppHeader />
             <SearchPanel/>
-            <ToDoList items={['Make something', 'Make something else']}/>
+            <ToDoList todos={todoData}/>
             <RandomJoke/>
         </div>
     );
