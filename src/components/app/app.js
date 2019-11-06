@@ -17,7 +17,8 @@ export default class App extends Component {
         this.createToDoItem('Make something'),
         this.createToDoItem('Make something else')
       ],
-      term: ''
+      term: '',
+      filt: 'all'
     };
     this.deleteItem = (id) => {
       this.setState(({ todoData }) => {
@@ -67,6 +68,10 @@ export default class App extends Component {
     this.setState({term: text});
   };
 
+  onFilter = (filt) => {
+    this.setState({filt: filt})
+  };
+
   search = (items, term) => {
     if(term.length === 0) {
       return items;
@@ -76,9 +81,21 @@ export default class App extends Component {
     });
   };
 
+  filter = (items, filt) => {
+    if (filt === 'done') {
+      return items.filter(el => el.done);
+    }
+    if (filt === 'active') {
+      return items.filter(el => !el.done);
+    }
+    if(filt === 'all') {
+      return items;
+    }
+  };
+
   render () {
-    const { todoData, term } = this.state;
-    const visibleItems = this.search(todoData, term);
+    const { todoData, term, filt } = this.state;
+    const visibleItems = this.filter(this.search(todoData, term), filt);
     const doneCount = todoData.filter(el => el.done).length;
     const toDoCount = todoData.length - doneCount;
     return (
